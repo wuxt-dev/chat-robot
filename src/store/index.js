@@ -41,23 +41,16 @@ export default createStore({
   actions: {
     login({ commit }, data) {
       return new Promise((resolve, reject) => {
-        loginApi(data).then(
-          (res) => {
-            const { status, message, data } = res
-            if (status === 0) {
-              commit('setToken', data.token)
-              commit('setTokenExpire', data.tokenExpire)
-              commit('setTokenTime', Date.now())
-              commit('setUser', data.user)
-              resolve(message)
-            } else {
-              reject(message)
-            }
-          },
-          (err) => {
-            reject(err)
-          }
-        )
+        loginApi(data)
+          .then((res) => {
+            const { data } = res
+            commit('setToken', data.token)
+            commit('setTokenExpire', data.tokenExpire)
+            commit('setTokenTime', Date.now())
+            commit('setUser', data.user)
+            resolve()
+          })
+          .catch(() => {})
       })
     }
   }

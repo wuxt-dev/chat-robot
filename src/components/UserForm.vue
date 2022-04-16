@@ -42,8 +42,8 @@ const props = defineProps({
 const emits = defineEmits(['submit'])
 
 const formData = ref({
-  username: 'wuxt',
-  password: '000000'
+  username: '',
+  password: ''
 })
 const rules = ref({
   username: [
@@ -56,9 +56,9 @@ const rules = ref({
   ]
 })
 const formRef = ref(null)
-const validateForm = async () => {
+const validateForm = () => {
   if (!formRef.value) return
-  formRef.value.validate(async (valid) => {
+  formRef.value.validate((valid) => {
     if (valid) {
       emits('submit', event, formData)
     } else {

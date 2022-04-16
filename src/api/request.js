@@ -14,7 +14,6 @@ service.interceptors.request.use(
     return config
   },
   (err) => {
-    ElMessage.error(err.request.data)
     return Promise.reject(err.request.data)
   }
 )
@@ -25,20 +24,25 @@ service.interceptors.response.use(
     if (status === 200 || status === 201) {
       if (data.status === 1) {
         ElMessage.error(data.message)
-        return Promise.reject(new Error(statusText))
+        return Promise.reject(data.message)
+      } else {
+        ElMessage.success(data.message)
+        return data
       }
-      return data
     } else {
       ElMessage.error(statusText)
-      return Promise.reject(new Error(statusText))
+      return Promise.reject(statusText)
     }
   },
   (error) => {
     if (error.response) {
+      ElMessage.error(error.response.data)
       return Promise.reject(error.response.data)
     } else if (error.request) {
+      ElMessage.error(error.request)
       return Promise.reject(error.request)
     } else {
+      ElMessage.error(error.message)
       return Promise.reject(error.message)
     }
   }
