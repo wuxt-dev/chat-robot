@@ -43,7 +43,7 @@ const emits = defineEmits(['submit'])
 
 const formData = ref({
   username: 'wuxt',
-  password: '123456'
+  password: '000000'
 })
 const rules = ref({
   username: [

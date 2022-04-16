@@ -3,21 +3,18 @@
 </template>
 
 <script setup>
-import { login } from '@/api/user'
-import { ElMessage } from 'element-plus'
 import router from '@/router/index'
 import store from '@/store/index'
 import UserForm from '@/components/UserForm.vue'
+import { ElMessage } from 'element-plus'
 
 const handleSubmit = async (e, formData) => {
-  const { status, message, data } = await login(formData.value)
-  if (status === 0) {
-    localStorage.setItem('token', data.token)
-    store.commit('setUser', data.user)
-    ElMessage.success(message)
-    router.replace({ path: '/contact' })
-  } else {
-    ElMessage.error(message)
-  }
+  store
+    .dispatch('login', formData.value)
+    .then((res) => {
+      ElMessage.success(res)
+      router.replace({ path: '/contact' })
+    })
+    .catch((err) => ElMessage.err(err))
 }
 </script>

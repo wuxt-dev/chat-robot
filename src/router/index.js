@@ -3,6 +3,10 @@ import Login from '@/views/Login/index.vue'
 import Register from '@/views/Register/index.vue'
 import ChatView from '../views/ChatView/index.vue'
 import ContactView from '../views/ContactView/index.vue'
+import { WHITE_LIST } from '@/config/index'
+import { diffTokenTime } from '@/utils/index'
+import { ElMessage } from 'element-plus'
+import store from '@/store/index'
 
 const routes = [
   {
@@ -37,16 +41,13 @@ const router = createRouter({
   routes
 })
 
-const whiteList = ['/login', '/register']
 router.beforeEach((to, from, next) => {
-  if (localStorage.getItem('token')) {
-    if (to.path === '/login') next('/contact')
-    else {
-      next()
-    }
+  if (WHITE_LIST.includes(to.path)) next()
+  else if (store.getters.token && diffTokenTime()) {
+    next()
   } else {
-    if (whiteList.includes(to.path)) next()
-    else next('/login')
+    ElMessage.error('token过期，请重新登录！')
+    next('/login')
   }
 })
 

@@ -2,8 +2,8 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 const service = axios.create({
-  baseURL: '/api',
-  timeout: 5000
+  baseURL: '/api'
+  // timeout: 5000
 })
 
 service.interceptors.request.use(
@@ -33,9 +33,14 @@ service.interceptors.response.use(
       return Promise.reject(new Error(statusText))
     }
   },
-  (err) => {
-    ElMessage.error(err.response.data)
-    return Promise.reject(new Error(err.response.data))
+  (error) => {
+    if (error.response) {
+      return Promise.reject(error.response.data)
+    } else if (error.request) {
+      return Promise.reject(error.request)
+    } else {
+      return Promise.reject(error.message)
+    }
   }
 )
 

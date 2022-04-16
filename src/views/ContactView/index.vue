@@ -39,11 +39,12 @@ import Userinfo from './componnets/Userinfo.vue'
 
 const username = store.getters.username
 const contacts = ref([
-  { id: 1, username: 'max' },
+  { id: 1, username: 'robot' },
   { id: 2, username: 'eric' },
   { id: 3, username: 'monica' }
 ])
 const handleChat = (username) => {
+  store.commit('setChatFriend', username)
   router.push('/chat')
 }
 </script>

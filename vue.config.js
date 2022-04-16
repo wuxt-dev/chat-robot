@@ -16,7 +16,7 @@ module.exports = defineConfig({
       })
     )
     config.resolve.alias = {
-      '@': resolve(__dirname, './src')
+      '@': resolve(__dirname, 'src')
     }
   },
   devServer: {
@@ -24,7 +24,6 @@ module.exports = defineConfig({
     hot: true,
     proxy: {
       '/api': {
-        // target: 'http://192.168.2.102:3000',
         target: 'http://127.0.0.1:3000',
         changeOrigin: true,
         pathRewrite: {
