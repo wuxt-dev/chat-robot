@@ -52,6 +52,11 @@ export default createStore({
           })
           .catch(() => {})
       })
+    },
+    logout({ commit }) {
+      commit('setToken', '')
+      commit('setTokenExpire', '')
+      commit('setTokenTime', '')
     }
   }
 })

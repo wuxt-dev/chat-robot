@@ -35,6 +35,7 @@
 import { defineProps, defineEmits, ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Lock, Unlock, Avatar } from '@element-plus/icons-vue'
+import store from '@/store/index'
 
 const props = defineProps({
   title: String
@@ -45,6 +46,7 @@ const formData = ref({
   username: '',
   password: ''
 })
+formData.value.username = store.getters.username
 const rules = ref({
   username: [
     { required: true, message: 'Username is required', trigger: 'blur' },

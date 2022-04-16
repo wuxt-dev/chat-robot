@@ -5,7 +5,17 @@
         :username="username"
         :avatar="username[0].toUpperCase()"
         :size="50"
-      />
+      >
+        <el-tooltip content="logout" placement="bottom-end" effect="light">
+          <el-button
+            type="primary"
+            size="small"
+            circle
+            :icon="SwitchButton"
+            @click="handeLogout"
+          />
+        </el-tooltip>
+      </Userinfo>
     </template>
     <div class="contacts">
       <Userinfo
@@ -20,7 +30,6 @@
           type="primary"
           plain
           round
-          size="small"
           class="function"
           @click="handleChat(contact.username)"
         >
@@ -36,16 +45,20 @@ import store from '@/store/index'
 import router from '@/router/index'
 import { ref } from 'vue'
 import Userinfo from './componnets/Userinfo.vue'
+import { SwitchButton } from '@element-plus/icons-vue'
 
 const username = store.getters.username
 const contacts = ref([
   { id: 1, username: 'robot' },
-  { id: 2, username: 'eric' },
-  { id: 3, username: 'monica' }
+  { id: 2, username: 'friends' }
 ])
 const handleChat = (username) => {
   store.commit('setChatFriend', username)
   router.push('/chat')
+}
+const handeLogout = () => {
+  store.dispatch('logout')
+  router.replace('/login')
 }
 </script>
 
