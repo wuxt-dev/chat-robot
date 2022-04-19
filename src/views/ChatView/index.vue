@@ -1,27 +1,22 @@
 <template>
   <div class="container" id="app">
-    <ChatHeader :username="store.getters.chatFriend" />
+    <ChatHeader :username="chatFriend.username" />
     <MessageBox :historyMsg="historyMsg" />
     <InputBox v-model:message="message" :sendMessage="sendMessage" />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import MessageBox from './components/MessageBox.vue'
 import InputBox from './components/InputBox.vue'
 import ChatHeader from './components/ChatHeader.vue'
 import store from '@/store/index'
-import socketManager from '@/api/socket'
+import { socket } from '@/api/socket'
 
 const message = ref('')
 const historyMsg = ref([])
-const socketPath = computed(() => {
-  const chatFriend = store.getters.chatFriend
-  if (chatFriend === 'robot') return `/${chatFriend}`
-  return '/friend'
-})
-const socket = socketManager.socket(socketPath.value)
+const chatFriend = store.getters.chatFriend
 const sendMessage = () => {
   if (message.value.trim()) {
     historyMsg.value.push({
@@ -35,6 +30,7 @@ const sendMessage = () => {
     message.value = ''
   }
 }
+
 socket.on('chat message', (msg) => {
   historyMsg.value.push(msg)
 })

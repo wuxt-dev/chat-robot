@@ -19,7 +19,7 @@
     </template>
     <div class="contacts">
       <Userinfo
-        v-for="contact in contacts"
+        v-for="contact in friendList"
         :key="contact.id"
         :username="contact.username"
         :avatar="contact.username[0].toUpperCase()"
@@ -31,7 +31,7 @@
           plain
           round
           class="function"
-          @click="handleChat(contact.username)"
+          @click="handleChat(contact)"
         >
           Chat
         </el-button>
@@ -41,25 +41,41 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { SwitchButton } from '@element-plus/icons-vue'
 import store from '@/store/index'
 import router from '@/router/index'
-import { ref } from 'vue'
 import Userinfo from './componnets/Userinfo.vue'
-import { SwitchButton } from '@element-plus/icons-vue'
+import { socket } from '@/api/socket'
+import { getFriendList } from '@/api/chat'
 
 const username = store.getters.username
-const contacts = ref([
-  { id: 1, username: 'robot' },
-  { id: 2, username: 'friends' }
-])
-const handleChat = (username) => {
-  store.commit('setChatFriend', username)
+
+const handleChat = (friend) => {
+  store.commit('chat/setChatFriend', friend)
+  const userId = store.getters.userId
+  const socketRoom =
+    userId > friend.id ? `${userId}-${friend.id}` : `${friend.id}-${userId}`
+  socket.emit('join room', {
+    room: socketRoom,
+    username: store.getters.username
+  })
+  store.commit('chat/setChatRoom', socketRoom)
   router.push('/chat')
 }
+
 const handeLogout = () => {
-  store.dispatch('logout')
+  store.dispatch('user/logout')
   router.replace('/login')
 }
+const friendList = ref([{ id: 0, username: 'Chat Bot' }])
+
+getFriendList(store.getters.userId)
+  .then((res) => {
+    const { data } = res
+    friendList.value = data.friendList
+  })
+  .catch()
 </script>
 
 <style scoped>

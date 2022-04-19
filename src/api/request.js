@@ -26,7 +26,7 @@ service.interceptors.response.use(
         ElMessage.error(data.message)
         return Promise.reject(data.message)
       } else {
-        ElMessage.success(data.message)
+        if (data.message) ElMessage.success(data.message)
         return data
       }
     } else {

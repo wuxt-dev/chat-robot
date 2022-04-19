@@ -16,12 +16,19 @@
 import { defineProps } from 'vue'
 import { ArrowLeftBold } from '@element-plus/icons-vue'
 import router from '@/router/index'
+import { socket } from '@/api/socket'
+import store from '@/store/index'
 
 defineProps({
   username: String
 })
 
 const backToContact = () => {
+  socket.emit('leave room', {
+    username: store.getters.username,
+    room: store.getters.chatRoom
+  })
+  store.commit('chat/setChatRoom', '')
   router.replace('/contact')
 }
 </script>

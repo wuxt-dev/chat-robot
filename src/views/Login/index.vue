@@ -9,7 +9,7 @@ import UserForm from '@/components/UserForm.vue'
 
 const handleSubmit = (e, formData) => {
   store
-    .dispatch('login', formData.value)
+    .dispatch('user/login', formData.value)
     .then((res) => {
       router.replace({ path: '/contact' })
     })

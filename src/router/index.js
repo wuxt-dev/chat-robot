@@ -43,7 +43,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (WHITE_LIST.includes(to.path)) next()
-  else if (store.getters.token && diffTokenTime()) {
+  else if (from.path === '/' && to.path === '/chat') {
+    next('/contact')
+  } else if (store.getters.token && diffTokenTime()) {
     next()
   } else {
     ElMessage.error('token过期，请重新登录！')
