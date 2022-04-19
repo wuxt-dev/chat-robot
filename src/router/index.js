@@ -1,8 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Login from '@/views/Login/index.vue'
 import Register from '@/views/Register/index.vue'
-import ChatView from '../views/ChatView/index.vue'
-import ContactView from '../views/ContactView/index.vue'
+import Layout from '@/layout/index.vue'
 import { WHITE_LIST } from '@/config/index'
 import { diffTokenTime } from '@/utils/index'
 import { ElMessage } from 'element-plus'
@@ -12,7 +11,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Login
+    component: Layout
   },
   {
     path: '/login',
@@ -23,16 +22,6 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
-  },
-  {
-    path: '/contact',
-    name: 'ContactView',
-    component: ContactView
-  },
-  {
-    path: '/chat',
-    name: 'chatView',
-    component: ChatView
   }
 ]
 
@@ -43,9 +32,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (WHITE_LIST.includes(to.path)) next()
-  else if (from.path === '/' && to.path === '/chat') {
-    next('/contact')
-  } else if (store.getters.token && diffTokenTime()) {
+  else if (store.getters.token && diffTokenTime()) {
     next()
   } else {
     ElMessage.error('token过期，请重新登录！')

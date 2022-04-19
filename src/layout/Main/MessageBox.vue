@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar ref="msgBox" height="400px">
+  <el-scrollbar ref="msgBox" height="450px" max-height="600px">
     <div
       v-for="(item, index) in historyMsg"
       :key="index"

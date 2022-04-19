@@ -1,10 +1,10 @@
 <template>
   <el-card class="login">
     <template #header>
-      <span>{{ title }}</span>
-      <el-link :href="linkAddress" type="primary" class="register">
+      <span class="title">{{ title }}</span>
+      <router-link :to="linkAddress" class="link">
         {{ title === 'Login' ? 'sign up' : 'login' }}
-      </el-link>
+      </router-link>
     </template>
     <el-form
       label-position="top"
@@ -12,11 +12,12 @@
       :model="formData"
       ref="formRef"
       :rules="rules"
+      class="form"
     >
-      <el-form-item label="username" prop="username">
-        <el-input v-model="formData.username" :suffix-icon="Avatar" />
+      <el-form-item label="Username" prop="username">
+        <el-input v-model="formData.username" :suffix-icon="Avatar"></el-input>
       </el-form-item>
-      <el-form-item label="password" prop="password">
+      <el-form-item label="Password" prop="password">
         <el-input v-model="formData.password" :type="passwordType">
           <template #suffix>
             <el-icon class="el-input__icon" @click="togglePassword">
@@ -26,7 +27,7 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <el-button class="button" type="primary" round @click="validateForm">
+    <el-button class="button" color="#5b6ef9" plain round @click="validateForm">
       {{ title }}
     </el-button>
   </el-card>
@@ -71,7 +72,7 @@ const validateForm = () => {
 }
 
 const linkAddress = computed(() => {
-  return props.title === 'Login' ? '#/register' : '#/login'
+  return props.title === 'Login' ? '/register' : '/login'
 })
 
 const passwordType = ref('password')
@@ -81,6 +82,32 @@ const togglePassword = () => {
 </script>
 
 <style scoped>
+:deep(*) {
+  background-color: #6b7bf6;
+}
+:deep(.el-card__header) {
+  background-color: #5b6ef9;
+}
+:deep(.el-input__icon),
+:deep(.el-icon svg),
+:deep(.el-input__suffix-inner) {
+  background-color: #fff;
+}
+
+:deep(.el-form-item__label) {
+  color: #fff;
+  font-size: 15px;
+}
+:deep(.el-form-el-input__icon) {
+  background-color: #fff;
+}
+:deep(.el-button > span) {
+  background: transparent;
+}
+:deep(.el-input__suffix) {
+  height: 88%;
+  top: 2px;
+}
 .login {
   width: 420px;
   position: absolute;
@@ -89,11 +116,22 @@ const togglePassword = () => {
   transform: translate(-50%, -50%);
   border-radius: 4px;
 }
-.register {
-  float: right;
+.title {
+  background-color: #5b6ef9;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
 }
+.link {
+  background-color: #5b6ef9;
+  color: #fff;
+  float: right;
+  text-decoration: none;
+}
+
 .button {
   width: 100%;
+  font-weight: bold;
 }
 .el-input__icon {
   cursor: pointer;

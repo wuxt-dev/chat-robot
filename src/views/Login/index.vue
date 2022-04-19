@@ -11,7 +11,7 @@ const handleSubmit = (e, formData) => {
   store
     .dispatch('user/login', formData.value)
     .then((res) => {
-      router.replace({ path: '/contact' })
+      router.replace({ path: '/' })
     })
     .catch()
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="container" id="app">
-    <ChatHeader :username="chatFriend.username" />
     <MessageBox :historyMsg="historyMsg" />
     <InputBox v-model:message="message" :sendMessage="sendMessage" />
   </div>
@@ -8,15 +7,13 @@
 
 <script setup>
 import { ref } from 'vue'
-import MessageBox from './components/MessageBox.vue'
-import InputBox from './components/InputBox.vue'
-import ChatHeader from './components/ChatHeader.vue'
+import MessageBox from './MessageBox.vue'
+import InputBox from './InputBox.vue'
 import store from '@/store/index'
 import { socket } from '@/api/socket'
 
 const message = ref('')
 const historyMsg = ref([])
-const chatFriend = store.getters.chatFriend
 const sendMessage = () => {
   if (message.value.trim()) {
     historyMsg.value.push({
@@ -41,12 +38,7 @@ socket.on('broadcast', (msg) => {
 
 <style scoped>
 .container {
-  width: 50%;
-  height: 100%;
-  margin: 50px auto;
-  border: 2px solid var(--el-color-primary);
-  border-radius: 10px;
-  padding: 10px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
 }
