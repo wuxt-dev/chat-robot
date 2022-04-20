@@ -19,3 +19,10 @@ export const joinSocketRoom = (friend, socket) => {
   })
   store.commit('chat/setChatRoom', socketRoom)
 }
+
+export const formatMessage = (message) => {
+  return {
+    username: store.getters.username,
+    msg: message
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar ref="msgBox" height="450px" max-height="600px">
+  <el-scrollbar ref="msgBox" height="100%" max-height="600px">
     <div
       v-for="(item, index) in historyMsg"
       :key="index"
@@ -18,13 +18,12 @@
 </template>
 
 <script setup>
-import { defineProps, watch, nextTick, ref } from 'vue'
+import { watch, nextTick, ref, computed } from 'vue'
 import store from '@/store/index'
 
-const props = defineProps({
-  historyMsg: Array,
-  isMyMessage: Function
-})
+const historyMsg = computed(
+  () => store.getters.historyMsg[store.getters.chatFriend.username]
+)
 
 const isMyMessage = (username) => {
   if (username === store.getters.username) return 'my-info'
@@ -33,7 +32,7 @@ const isMyMessage = (username) => {
 
 const msgBox = ref(null)
 watch(
-  () => props.historyMsg,
+  historyMsg,
   () => {
     nextTick(() => {
       msgBox.value.setScrollTop(msgBox.value.wrap$.scrollHeight)

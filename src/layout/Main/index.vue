@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="app">
-    <MessageBox :historyMsg="historyMsg" />
+    <MessageBox />
     <InputBox v-model:message="message" :sendMessage="sendMessage" />
   </div>
 </template>
@@ -11,28 +11,22 @@ import MessageBox from './MessageBox.vue'
 import InputBox from './InputBox.vue'
 import store from '@/store/index'
 import { socket } from '@/api/socket'
+import { formatMessage } from '@/utils/index'
 
 const message = ref('')
-const historyMsg = ref([])
 const sendMessage = () => {
   if (message.value.trim()) {
-    historyMsg.value.push({
-      username: store.getters.username,
-      msg: message.value
-    })
-    socket.emit('chat message', {
-      username: store.getters.username,
-      msg: message.value
-    })
+    store.commit('chat/addHistoryMsg', formatMessage(message.value))
+    socket.emit('chat message', formatMessage(message.value))
     message.value = ''
   }
 }
 
 socket.on('chat message', (msg) => {
-  historyMsg.value.push(msg)
+  store.commit('chat/addHistoryMsg', msg)
 })
 socket.on('broadcast', (msg) => {
-  historyMsg.value.push(msg)
+  store.commit('chat/addHistoryMsg', msg)
 })
 </script>
 
