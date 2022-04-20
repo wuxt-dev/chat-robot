@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-row>
-      <el-col :span="22">
+      <el-col :span="21">
         <el-input
           autocomplete="off"
           :modelValue="message"
@@ -9,8 +9,14 @@
           @keyup.enter="sendMessage"
         />
       </el-col>
-      <el-col :span="2">
-        <el-button color="#5662c5" plain @click="sendMessage" class="button">
+      <el-col :span="3">
+        <el-button
+          color="#5662c5"
+          plain
+          @click="sendMessage"
+          class="button"
+          :icon="Promotion"
+        >
           Send
         </el-button>
       </el-col>
@@ -20,6 +26,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue'
+import { Promotion } from '@element-plus/icons-vue'
 
 defineProps({
   message: String,

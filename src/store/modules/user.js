@@ -1,4 +1,5 @@
 import { login as loginApi } from '@/api/user'
+import router from '@/router'
 
 export default {
   namespaced: true,
@@ -45,6 +46,7 @@ export default {
       commit('setToken', '')
       commit('setTokenExpire', '')
       commit('setTokenTime', '')
+      router.replace('/login')
     }
   }
 }

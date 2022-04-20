@@ -21,7 +21,7 @@
         <el-input v-model="formData.password" :type="passwordType">
           <template #suffix>
             <el-icon class="el-input__icon" @click="togglePassword">
-              <component :is="passwordType === 'text' ? Unlock : Lock" />
+              <component :is="passwordType === 'text' ? View : Hide" />
             </el-icon>
           </template>
         </el-input>
@@ -35,7 +35,7 @@
 <script setup>
 import { defineProps, defineEmits, ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Lock, Unlock, Avatar } from '@element-plus/icons-vue'
+import { View, Hide, Avatar } from '@element-plus/icons-vue'
 import store from '@/store/index'
 
 const props = defineProps({

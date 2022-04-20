@@ -1,6 +1,8 @@
 <template>
   <el-container class="layout-container">
-    <el-header class="header">{{ store.getters.username }}</el-header>
+    <el-header class="header">
+      <Header />
+    </el-header>
     <el-container>
       <el-aside width="200px" class="aside">
         <AsideMenu />
@@ -13,7 +15,7 @@
 </template>
 
 <script setup>
-import store from '@/store/index'
+import Header from './Header/index.vue'
 import AsideMenu from './AsideMenu/index.vue'
 import Main from './Main/index.vue'
 </script>
@@ -24,10 +26,6 @@ import Main from './Main/index.vue'
 }
 .header {
   background-color: #5b6ef9;
-  font-size: 30px;
-  color: #fff;
-  display: flex;
-  align-items: center;
 }
 .aside {
   background-color: #6b7bf6;
