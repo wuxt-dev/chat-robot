@@ -27,7 +27,7 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <el-button class="button" color="#5b6ef9" plain round @click="validateForm">
+    <el-button class="button" color="#5662c5" plain round @click="validateForm">
       {{ title }}
     </el-button>
   </el-card>

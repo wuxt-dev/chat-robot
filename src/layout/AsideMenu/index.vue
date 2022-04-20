@@ -25,6 +25,7 @@ import { ref } from 'vue-demi'
 import store from '@/store/index'
 import { UserFilled } from '@element-plus/icons-vue'
 import { joinSocketRoom } from '@/utils/index'
+import { socket } from '@/api/socket'
 
 const friendList = ref([])
 getFriendList(store.getters.userId)
@@ -34,7 +35,7 @@ getFriendList(store.getters.userId)
   })
   .catch()
 
-joinSocketRoom(store.getters.chatFriend)
+joinSocketRoom(store.getters.chatFriend, socket)
 </script>
 <style scoped>
 :deep(.el-menu-item.is-active) {

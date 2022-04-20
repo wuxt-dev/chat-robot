@@ -6,8 +6,13 @@
       class="info"
       :class="isMyMessage(item.username)"
     >
-      <p class="username">{{ item.username }}</p>
-      <p class="message">{{ item.msg }}</p>
+      <template v-if="item.username === 'system'">
+        <p class="system-message">{{ item.msg }}</p>
+      </template>
+      <template v-else>
+        <p class="username">{{ item.username }}</p>
+        <p class="message">{{ item.msg }}</p>
+      </template>
     </div>
   </el-scrollbar>
 </template>
@@ -45,17 +50,18 @@ watch(
   align-items: center;
   justify-content: flex-start;
   text-align: left;
+  font-size: 20px;
 }
 .info .username,
 .info .message {
-  padding: 10px 10px;
-  color: #409eff;
+  padding: 5px 5px;
+  color: #769fcd;
 }
 .info .message {
-  border: 1px solid #a0cfff;
   border-radius: 4px;
-  background-color: #ecf5ff;
   margin-bottom: 10px;
+  border: 1px solid #b9d7ea;
+  background-color: #f7fbfc;
 }
 
 .my-info {
@@ -64,11 +70,21 @@ watch(
 }
 .my-info .username,
 .my-info .message {
-  color: #529b2e;
+  color: #f67280;
 }
 
 .my-info .message {
-  border: 1px solid #b3e19d;
-  background-color: #f0f9eb;
+  border: 1px solid #f7ddde;
+  background-color: #fcf5ee;
+}
+
+.system-message {
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  text-align: center;
+  background-color: rgba(106, 122, 246, 0.2);
+  color: rgb(0, 0, 0, 0.5);
 }
 </style>

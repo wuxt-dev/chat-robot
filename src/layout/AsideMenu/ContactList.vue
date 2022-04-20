@@ -45,8 +45,8 @@ const handleChat = (friend) => {
     username: store.getters.username,
     room: store.getters.chatRoom
   })
-  joinSocketRoom(friend)
+  joinSocketRoom(friend, socket)
 }
 </script>
 
-<style></style>
+<style scoped></style>

@@ -1,5 +1,4 @@
 import store from '@/store/index'
-import { socket } from '@/api/socket'
 
 // 是否已经过期
 export const diffTokenTime = () => {
@@ -9,7 +8,7 @@ export const diffTokenTime = () => {
   return currentTime - tokenTime < tokenExpire
 }
 
-export const joinSocketRoom = (friend) => {
+export const joinSocketRoom = (friend, socket) => {
   store.commit('chat/setChatFriend', friend)
   const userId = store.getters.userId
   const socketRoom =

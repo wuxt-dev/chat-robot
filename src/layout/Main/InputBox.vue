@@ -35,7 +35,7 @@ defineEmits(['update:message'])
   justify-content: center;
   margin: 0 -20px -20px -20px;
   padding: 20px;
-  background-color: #5b6ef9 !important;
+  background-color: rgb(93, 111, 249, 0.6) !important;
 }
 .button {
   width: 100%;

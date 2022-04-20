@@ -6,6 +6,7 @@ import { WHITE_LIST } from '@/config/index'
 import { diffTokenTime } from '@/utils/index'
 import { ElMessage } from 'element-plus'
 import store from '@/store/index'
+import { socket } from '@/api/socket'
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  if (from.path === '/' && to.path !== '/') {
+    socket.disconnect()
+  } else if (to.path === '/') {
+    socket.connect()
+  }
   if (WHITE_LIST.includes(to.path)) next()
   else if (store.getters.token && diffTokenTime()) {
     next()
