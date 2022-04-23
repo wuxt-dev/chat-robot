@@ -20,7 +20,7 @@
 </template>
 <script setup>
 import ContactList from './ContactList.vue'
-import { getFriendList } from '@/api/chat'
+import { getFriendList } from '@/api/friend'
 import { ref } from 'vue-demi'
 import store from '@/store/index'
 import { UserFilled } from '@element-plus/icons-vue'
@@ -33,8 +33,7 @@ getFriendList(store.getters.userId)
     const { data } = res
     friendList.value = data.friendList
   })
-  .catch()
-
+  .catch((err) => console.log(err))
 joinSocketRoom(store.getters.chatFriend, socket)
 </script>
 <style scoped>

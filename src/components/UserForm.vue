@@ -51,7 +51,7 @@ formData.value.username = store.getters.username
 const rules = ref({
   username: [
     { required: true, message: 'Username is required', trigger: 'blur' },
-    { min: 1, max: 5, message: 'Length should be 1 to 5', trigger: 'blur' }
+    { min: 1, max: 8, message: 'Length should be 1 to 8', trigger: 'blur' }
   ],
   password: [
     { required: true, message: 'Password is required', trigger: 'blur' },

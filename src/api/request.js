@@ -36,7 +36,7 @@ service.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      ElMessage.error(error.response.data)
+      ElMessage.error(error.response.statusText)
       return Promise.reject(error.response.data)
     } else if (error.request) {
       ElMessage.error(error.request)

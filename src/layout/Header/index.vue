@@ -1,11 +1,24 @@
 <template>
   <div class="header-container">
     <div class="userinfo">
-      <el-avatar>user</el-avatar>
-      <span>{{ store.getters.username }}</span>
+      <el-avatar v-if="!user.avatar">{{ user.username[0] }}</el-avatar>
+      <el-avatar v-else :src="user.avatar"></el-avatar>
+      <span>{{ user.username }}</span>
     </div>
     <div class="function">
-      <el-button :icon="Search" circle color="#5b6ef9" size="large" />
+      <el-tooltip
+        effect="light"
+        content="search for friends"
+        placement="bottom-start"
+      >
+        <el-button
+          :icon="Search"
+          circle
+          color="#5b6ef9"
+          size="large"
+          @click="dialogVisible = true"
+        />
+      </el-tooltip>
       <el-tooltip effect="light" content="full screen" placement="bottom-start">
         <el-button
           :icon="FullScreen"
@@ -26,6 +39,9 @@
       </el-tooltip>
     </div>
   </div>
+  <teleport to="#dialog">
+    <SearchDialog v-model="dialogVisible" />
+  </teleport>
 </template>
 
 <script setup>
@@ -33,7 +49,12 @@ import { Search, FullScreen, SwitchButton } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import screenfull from 'screenfull'
 import store from '@/store/index'
-import { ref } from 'vue-demi'
+import { computed, ref } from 'vue-demi'
+import SearchDialog from './SearchDialog.vue'
+
+const user = computed(() => store.getters.user)
+
+const dialogVisible = ref(true)
 
 const logout = (e) => {
   ElMessageBox.confirm('确定要退出登录吗', 'Warning', {
@@ -72,6 +93,9 @@ const fullScreen = (e) => {
 }
 .el-avatar {
   margin-right: 10px;
+  font-size: 25px;
+  background-color: #fff;
+  color: #5b6ef9;
 }
 .function {
   font-size: 20px;

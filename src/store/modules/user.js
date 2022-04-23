@@ -37,6 +37,7 @@ export default {
             commit('setTokenExpire', data.tokenExpire)
             commit('setTokenTime', Date.now())
             commit('setUser', data.user)
+            router.replace({ path: '/' })
             resolve()
           })
           .catch()

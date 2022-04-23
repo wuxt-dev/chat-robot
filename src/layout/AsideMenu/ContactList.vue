@@ -8,12 +8,16 @@
     </template>
     <el-menu-item-group>
       <el-menu-item
-        :index="friend.username"
         v-for="friend in contactList"
+        :index="friend.username"
         :key="friend.id"
         @click="handleChat(friend)"
       >
-        {{ friend.username }}
+        <el-avatar v-if="!friend.avatar" size="small">
+          {{ friend.username[0] }}
+        </el-avatar>
+        <el-avatar v-else :src="friend.avatar" size="small"></el-avatar>
+        <span>{{ friend.username }}</span>
       </el-menu-item>
     </el-menu-item-group>
   </el-sub-menu>
@@ -49,4 +53,11 @@ const handleChat = (friend) => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-avatar {
+  font-weight: bold;
+  margin-right: 10px;
+  background-color: #fff;
+  color: #5b6ef9;
+}
+</style>

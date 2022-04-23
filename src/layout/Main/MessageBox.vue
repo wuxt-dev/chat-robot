@@ -10,7 +10,11 @@
         <p class="system-message">{{ item.msg }}</p>
       </template>
       <template v-else>
-        <p class="username">{{ item.username }}</p>
+        <el-avatar
+          v-if="isMyMessage(item.username)"
+          :src="store.getters.user.avatar"
+        ></el-avatar>
+        <el-avatar v-else :src="store.getters.chatFriend.avatar"></el-avatar>
         <p class="message">{{ item.msg }}</p>
       </template>
     </div>
@@ -57,10 +61,14 @@ watch(
   color: #769fcd;
 }
 .info .message {
+  max-width: 80%;
+  padding: 5px 15px;
   border-radius: 4px;
   margin-bottom: 10px;
   border: 1px solid #b9d7ea;
   background-color: #f7fbfc;
+  margin: 0 0 15px 10px;
+  word-wrap: break-word;
 }
 
 .my-info {
@@ -75,6 +83,7 @@ watch(
 .my-info .message {
   border: 1px solid #f7ddde;
   background-color: #fcf5ee;
+  margin: 0 10px 10px 0;
 }
 
 .system-message {
