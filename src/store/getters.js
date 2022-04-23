@@ -7,5 +7,6 @@ export default {
   userId: (state) => (state.user.user ? state.user.user.id : ''),
   chatFriend: (state) => state.chat.chatFriend,
   chatRoom: (state) => state.chat.chatRoom,
-  historyMsg: (state) => state.chat.historyMsg
+  historyMsg: (state) => state.chat.historyMsg,
+  friendList: (state) => state.friend.friendList
 }

@@ -20,20 +20,22 @@
 </template>
 <script setup>
 import ContactList from './ContactList.vue'
-import { getFriendList } from '@/api/friend'
-import { ref } from 'vue-demi'
 import store from '@/store/index'
 import { UserFilled } from '@element-plus/icons-vue'
 import { joinSocketRoom } from '@/utils/index'
 import { socket } from '@/api/socket'
+import { ref, watchEffect } from 'vue-demi'
+import { getFriendList } from '@/api/friend'
 
 const friendList = ref([])
 getFriendList(store.getters.userId)
   .then((res) => {
-    const { data } = res
-    friendList.value = data.friendList
+    store.commit('friend/setFriendList', res.data.friendList)
   })
-  .catch((err) => console.log(err))
+  .catch()
+watchEffect(() => {
+  friendList.value = store.getters.friendList
+})
 joinSocketRoom(store.getters.chatFriend, socket)
 </script>
 <style scoped>

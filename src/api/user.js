@@ -2,7 +2,7 @@ import request from './request'
 
 export const login = (data) => {
   return request({
-    url: '/login',
+    url: '/user/login',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export const login = (data) => {
 
 export const register = (data) => {
   return request({
-    url: '/register',
+    url: '/user/register',
     method: 'post',
     data
   })

@@ -1,10 +1,6 @@
 <template>
   <div class="header-container">
-    <div class="userinfo">
-      <el-avatar v-if="!user.avatar">{{ user.username[0] }}</el-avatar>
-      <el-avatar v-else :src="user.avatar"></el-avatar>
-      <span>{{ user.username }}</span>
-    </div>
+    <Userinfo :user="user" />
     <div class="function">
       <el-tooltip
         effect="light"
@@ -51,10 +47,11 @@ import screenfull from 'screenfull'
 import store from '@/store/index'
 import { computed, ref } from 'vue-demi'
 import SearchDialog from './SearchDialog.vue'
+import Userinfo from './Userinfo.vue'
 
 const user = computed(() => store.getters.user)
 
-const dialogVisible = ref(true)
+const dialogVisible = ref(false)
 
 const logout = (e) => {
   ElMessageBox.confirm('确定要退出登录吗', 'Warning', {
@@ -85,18 +82,7 @@ const fullScreen = (e) => {
   align-items: center;
   justify-content: space-between;
 }
-.userinfo {
-  font-size: 30px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-.el-avatar {
-  margin-right: 10px;
-  font-size: 25px;
-  background-color: #fff;
-  color: #5b6ef9;
-}
+
 .function {
   font-size: 20px;
 }
