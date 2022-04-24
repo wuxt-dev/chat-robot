@@ -22,6 +22,7 @@ import Main from './Main/index.vue'
 
 <style scoped>
 .layout-container {
+  min-width: 800px;
   height: 100%;
 }
 .header {

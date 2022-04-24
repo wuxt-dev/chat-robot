@@ -1,7 +1,7 @@
 <template>
   <div class="userinfo">
     <el-avatar v-if="!user.avatar">{{ user.username[0] }}</el-avatar>
-    <el-avatar v-else :src="user.avatar"></el-avatar>
+    <el-avatar v-else :src="user.avatar" class="pic-avatar"></el-avatar>
     <span>{{ user.username }}</span>
   </div>
 </template>
@@ -37,5 +37,8 @@ defineProps({
   font-size: 25px;
   background-color: v-bind(bgColor);
   color: v-bind(color);
+}
+.pic-avatar {
+  cursor: pointer;
 }
 </style>

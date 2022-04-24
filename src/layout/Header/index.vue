@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <Userinfo :user="user" />
+    <Userinfo :user="user" @click="uploadAvatarVisible = true" />
     <div class="function">
       <el-tooltip
         effect="light"
@@ -12,7 +12,7 @@
           circle
           color="#5b6ef9"
           size="large"
-          @click="dialogVisible = true"
+          @click="searchDialogVisible = true"
         />
       </el-tooltip>
       <el-tooltip effect="light" content="full screen" placement="bottom-start">
@@ -35,9 +35,8 @@
       </el-tooltip>
     </div>
   </div>
-  <teleport to="#dialog">
-    <SearchDialog v-model="dialogVisible" />
-  </teleport>
+  <SearchDialog v-model="searchDialogVisible" />
+  <UploadAvatar v-model="uploadAvatarVisible" />
 </template>
 
 <script setup>
@@ -48,10 +47,12 @@ import store from '@/store/index'
 import { computed, ref } from 'vue-demi'
 import SearchDialog from './SearchDialog.vue'
 import Userinfo from './Userinfo.vue'
+import UploadAvatar from './UploadAvatar.vue'
 
 const user = computed(() => store.getters.user)
 
-const dialogVisible = ref(false)
+const searchDialogVisible = ref(false)
+const uploadAvatarVisible = ref(false)
 
 const logout = (e) => {
   ElMessageBox.confirm('确定要退出登录吗', 'Warning', {
@@ -66,7 +67,6 @@ const logout = (e) => {
 }
 
 const toggleFullScreen = ref(false)
-
 const fullScreen = (e) => {
   toggleFullScreen.value = !toggleFullScreen.value
   if (toggleFullScreen.value) screenfull.request()

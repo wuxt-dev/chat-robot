@@ -1,5 +1,11 @@
 <template>
-  <el-dialog :model-value="dialogVisible" title="search user" width="50%">
+  <el-dialog
+    :model-value="searchDialogVisible"
+    title="search user"
+    width="50%"
+    append-to-body
+    @close="dialogClose"
+  >
     <el-tabs v-model="tab" type="card">
       <el-tab-pane label="search by id" name="id"></el-tab-pane>
       <el-tab-pane label="search by username" name="username"></el-tab-pane>
@@ -37,7 +43,7 @@ import Userinfo from './Userinfo.vue'
 import store from '@/store/index'
 
 defineProps({
-  dialogVisible: Boolean
+  searchDialogVisible: Boolean
 })
 const emits = defineEmits(['update:model-value'])
 
@@ -62,6 +68,10 @@ const handleAddFriend = async () => {
   await addFriend(store.getters.userId, user.value.id)
   const res = await getFriendList(store.getters.userId)
   store.commit('friend/setFriendList', res.data.friendList)
+  emits('update:model-value', false)
+}
+
+const dialogClose = () => {
   emits('update:model-value', false)
 }
 </script>

@@ -10,3 +10,6 @@ body,
   background-color: #e4e6ff;
   font-size: 15px;
 }
+.el-dialog {
+  min-width: 400px;
+}
